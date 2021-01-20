@@ -1,0 +1,51 @@
+{
+  "name": "use-monitor-hook",
+  "version": "1.0.0",
+  "description": "A library that provides a hook for monitoring endpoints with flecxible settings.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JenHsuan/use-monitor-hook.git"
+  },
+  "author": "jenhsuanhsieh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JenHsuan/use-monitor-hook/issues"
+  },
+  "homepage": "https://github.com/JenHsuan/use-monitor-hook#readme",
+  "engines": {
+    "node": ">=14.4.0",
+    "npm": ">=6.14.0"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": ">= 17.0.1",
+    "react-dom": ">= 17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-transform-react-jsx": "^7.12.12",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "css-loader": "^3.6.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "sass": "^1.32.2",
+    "shelljs": "^0.8.4",
+    "webpack-cli": "^4.3.1",
+    "webpack": "^4.29.6"
+  }
+}
