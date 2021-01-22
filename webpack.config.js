@@ -3,11 +3,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './src/components/SimpleGauge.js',
+  entry: './src/components/useMonitor.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'SimpleGauge.js',
-    library: 'SimpleGauge',
+    filename: 'useMonitor.js',
+    library: 'useMonitor',
     globalObject: "this",
     libraryTarget: 'commonjs2'
   },
