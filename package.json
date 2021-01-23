@@ -1,13 +1,16 @@
 {
-  "name": "use-monitor-hook",
-  "version": "1.0.0",
-  "description": "A library that provides a hook for monitoring endpoints with flecxible settings.",
-  "main": "webpack.config.js",
+  "name": "use-react-monitor",
+  "version": "0.1.21",
+  "description": "A library that provides a hook for monitoring endpoints.",
+  "main": "build/useMonitor.js",
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "build"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JenHsuan/use-monitor-hook.git"
@@ -35,6 +38,7 @@
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@babel/plugin-transform-react-jsx": "^7.12.12",
+    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "babel-loader": "^8.2.2",

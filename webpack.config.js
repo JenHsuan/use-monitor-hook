@@ -11,6 +11,10 @@ module.exports = {
     globalObject: "this",
     libraryTarget: 'commonjs2'
   },
+  externals: {
+    react: 'commonjs react',
+   'react-dom': 'commonjs react-dom',
+ },
   module: {
     rules: [
       {
