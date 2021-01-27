@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 
-function useMonitor ({urls, freshRate = 1000}) {
+function monitoredPropsAreEqual(prevResults, nextResults){
+    return JSON.stringify(prevResults) === JSON.stringify(nextResults);
+}
+
+const useMonitor = ({urls, freshRate = 1000}) => {
     //const freshRate = 1000;
     const [timerIDQueue, setTimerIDQueue] = useState([]);
     const [status, setStatus] = useState([]);
     const [results, setResults] = useState([]);
     const [lastTimes, setLastTime] = useState(Array(urls.length).fill(undefined));
+    const urlsJsonString = JSON.stringify(urls);
+
 
     useEffect(() => {
         console.log(`[use-react-monitor] freshRate: ${freshRate}`);
@@ -29,7 +35,7 @@ function useMonitor ({urls, freshRate = 1000}) {
             cleanTimerIDQueue();
         };
 
-    }, [freshRate]);
+    }, [freshRate, urlsJsonString]);
 
     const fetchResources = async() => {
         try{
@@ -67,4 +73,9 @@ function useMonitor ({urls, freshRate = 1000}) {
     return { results, status, lastTimes };
 };
 
+export {
+    monitoredPropsAreEqual
+}
+
 export default useMonitor;
+
