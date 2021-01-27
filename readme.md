@@ -48,12 +48,26 @@ export default ReduxTester
 
 ```
 
-Also provide the shallowly compare function to support React.memo
+### Also provide the shallowly compare function to support React.memo
 
 ``` javascript
 
 import React, {memo} from 'react';
 import useMonitor, {monitoredPropsAreEqual} from 'use-react-monitor';
+
+const ReduxTester = () => {
+    const interval = 3000;
+    const {results, status, lastTimes} = useMonitor(
+        { urls:['http://rem-rest-api.herokuapp.com/api/users',
+                'http://rem-rest-api.herokuapp.com/api/users'],
+          freshRate: interval});
+
+    return (
+        <>
+            {<MemorizedResults results = {results} status = {status}/>}
+        </>
+    )
+}
 
 const Results = ({ results, status}) => {
     const refCount = React.useRef(0);
@@ -80,25 +94,13 @@ const Results = ({ results, status}) => {
 
 const MemorizedResults = memo(Results, monitoredPropsAreEqual);
 
-const ReduxTester = () => {
-    const interval = 3000;
-    const {results, status, lastTimes} = useMonitor(
-        { urls:['http://rem-rest-api.herokuapp.com/api/users',
-                'http://rem-rest-api.herokuapp.com/api/users'],
-          freshRate: interval});
-
-    return (
-        <>
-            {<MemorizedResults results = {results} status = {status}/>}
-        </>
-    )
-}
-
 export default ReduxTester
 
 ```
 
 * [The repository of the example to use use-react-monitor ](https://github.com/JenHsuan/example-use-monitor-hook)
+
+![demo](https://raw.githubusercontent.com/JenHsuan/use-monitor-hook/master/demo/screen-shot.png)
 
 ## Parameters
 * urls

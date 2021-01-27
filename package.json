@@ -1,6 +1,6 @@
 {
   "name": "use-react-monitor",
-  "version": "0.2.30",
+  "version": "0.2.33",
   "description": "A library that provides a hook for monitoring endpoints.",
   "main": "build/useMonitor.js",
   "scripts": {
