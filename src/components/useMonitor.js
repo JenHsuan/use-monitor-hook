@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function monitoredPropsAreEqual(prevResults, nextResults){
     return JSON.stringify(prevResults) === JSON.stringify(nextResults);
@@ -6,15 +6,15 @@ function monitoredPropsAreEqual(prevResults, nextResults){
 
 const useMonitor = ({urls, freshRate = 1000}) => {
     //const freshRate = 1000;
-    const [timerIDQueue, setTimerIDQueue] = useState([]);
-    const [status, setStatus] = useState([]);
-    const [results, setResults] = useState([]);
-    const [lastTimes, setLastTime] = useState(Array(urls.length).fill(undefined));
+    //const [timerIDQueue, setTimerIDQueue] = useState([]);
+    const timerIDQueue = useRef([]);
+    const [status, setStatus] = useState('[]');
+    const [results, setResults] = useState('[]');
+    const lastTimes = useRef(Array(urls.length).fill(''));
     const urlsJsonString = JSON.stringify(urls);
 
-
     useEffect(() => {
-        console.log(`[use-react-monitor] freshRate: ${freshRate}`);
+        console.info(`[use-react-monitor] freshRate: ${freshRate}`);
         // Clean the timer queue
         cleanTimerIDQueue();
 
@@ -25,7 +25,7 @@ const useMonitor = ({urls, freshRate = 1000}) => {
             }, freshRate);
 
             // Save IDs in the timer queue
-            setTimerIDQueue(prevItems => [...prevItems, ID]);
+            setTimerIDQueue(ID)
         } else {
             // Clean the timer queue
             cleanTimerIDQueue();
@@ -37,40 +37,59 @@ const useMonitor = ({urls, freshRate = 1000}) => {
 
     }, [freshRate, urlsJsonString]);
 
+    //Modify the length of the updated times
+    useEffect(() => {
+        lastTimes.current = Array(urls.length).fill('');
+    }, [urlsJsonString])
+
+    const setTimerIDQueue = (id) => {
+        timerIDQueue.current.push(id);
+    }
+
     const fetchResources = async() => {
         try{
             let current = new Date();
             let time = current.toLocaleTimeString();
-            console.log(`[use-react-monitor] executed at: ${time}`);
+            console.info(`[use-react-monitor] executed at: ${time}`);
             let res = await Promise.allSettled(urls.map(async (url, index) => {
                 let t = await fetch(url);
                 updateLastTime(index);
                 return t.json();
             }));
-            setStatus(res.map(ele => ele.status));
-            setResults(res.map(ele => ele.value));
+            setStatus(JSON.stringify(res.map(ele => ele.status)));
+            setResults(JSON.stringify(res.map(ele => ele.value)));
         } catch(error){
-            console.log(error);
+            console.error(error);
         }
     }
 
     const updateLastTime = (index) => {
+        if (index >= lastTimes.current.length) {
+            return;
+        }
+
         let current = new Date();
         let time = current.toLocaleTimeString();
-        let list = lastTimes;
-        list[index] = time;
-        setLastTime(list);
+        console.info(`[use-react-monitor] update the last fetched time: ${time}`);
+        lastTimes.current[index] = time;
     }
 
+
     const cleanTimerIDQueue = () => {
-        console.log('[use-react-monitor] cleanTimerIDQueue');
-        timerIDQueue.map(timerID => {
+        let current = new Date();
+        let time = current.toLocaleTimeString();
+        console.info(`[use-react-monitor] cleanTimerIDQueue at ${time}`);
+        timerIDQueue.current.map(timerID => {
             clearInterval(timerID);
         });
-        setTimerIDQueue([]);
+        timerIDQueue.current = [];
     };
 
-    return { results, status, lastTimes };
+    return {
+        results: JSON.parse(results),
+        status: JSON.parse(status),
+        lastTimes: lastTimes.current
+    }
 };
 
 export {
