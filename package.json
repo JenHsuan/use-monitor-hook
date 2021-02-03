@@ -1,6 +1,6 @@
 {
   "name": "use-react-monitor",
-  "version": "1.0.30",
+  "version": "1.1.30",
   "description": "A library that provides a hook for monitoring endpoints.",
   "main": "build/useMonitor.js",
   "keywords": [
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
-    "test": "jest --config=jest.config.js"
+    "test": "jest --config=jest.config.js --coverage"
   },
   "files": [
     "build"

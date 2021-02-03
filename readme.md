@@ -108,6 +108,7 @@ export default Tester
 * freshRate (ms)
 
 ## Release notes
+### 1.1.30: add the unit test case (Jest)
 * 1.0.2: modify the readme.md
 * 1.0.1: add a reference
 ### 1.0.0: initialization
